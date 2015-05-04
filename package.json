@@ -1,0 +1,17 @@
+{
+  "name": "ssdom",
+  "version": "0.0.1",
+  "description": "Server Side DOM -- koajs middle ware.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ezekiel Warren",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^5.3.0"
+  },
+  "devDependencies": {
+    "koa": "^0.20.0"
+  }
+}
