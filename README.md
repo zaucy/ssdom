@@ -1,20 +1,35 @@
 ## ssdom - Server Side DOM
-This is a [koajs](http://koajs.com/) middleware that runs a server side dom on your HTML bodies before being served to the client. I made it to replace my old server side dom [sdom](https://github.com/zaucy/node-sdom).
+This is a standalone application to create a server side dom. I made it to replace my old server side dom [sdom](https://github.com/zaucy/node-sdom).
 
-ssdom uses [jsdom](https://github.com/tmpvar/jsdom) to run the server side dom. If there are any dom features not present I'd recommend forking jsdom and implementing it there.
+ssdom __heavily__ uses [jsdom](https://github.com/tmpvar/jsdom) to run the server side dom. If there are any dom features not present I'd recommend forking jsdom and implementing it there.
+
+The goal of ssdom is to be light weight and simple. I plan to improve jsdom instead of ssdom.
+
+Currently ssdom uses my version of jsdom because of a small change I needed. [zaucy/jsdom](/zaucy/jsdom)
 
 ## How to use ssdom
 
-In your koa application just use the middleware.
-```js
-var koa   = require("koa")
-  , ssdom = require("ssdom");
+#### Single site command line:
+```
+ssdom /my-website/main.html --port 80
+```
+#### Mutli site command line:
 
-var app = koa();
-app.use(ssdom());
+Use `{HOSTNAME}` in the path argument to insert the hostname to the html path.
+```
+ssdom /sites/{HOSTNAME}/main.html --port 80
 ```
 
-Then render your templates or server raw html files. However way you'd like. ssdom will then run on your script tags with the attribute `context`. Valid values for the context attribute are `server` or `server-only`. The attribute is completely optional. However if the context attribute is omitted the script will _not_ run on the server.
+#### Programatically
+Provide html path string.
+```js
+var ssdom = require("ssdom");
+
+var server = ssdom("/my-website/main.html");
+server.listen(80);
+```
+
+ssdom will then run on your script tags with the attribute `context`. Valid values for the context attribute are `server` or `server-only`. The attribute is completely optional. However if the context attribute is omitted the script will _not_ run on the server.
 
 ```html
 ...

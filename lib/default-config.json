@@ -1,0 +1,5 @@
+{
+  "main-html": "main.html",
+  "public-path": "public",
+  "private-path": "private"
+}
