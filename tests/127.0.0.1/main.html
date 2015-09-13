@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>127.0.0.1</title>
 	</head>
 	<body>
-		127.0.0.1
+		<script context="server-only">
+			var site = loadData("/site.json");
+
+			function appendChildNodes(element, target) {
+				for(var i=0; element.childNodes.length > i; i++) {
+					var child = element.childNodes[i];
+					target.appendChild(child);
+				}
+			}
+
+			appendChildNodes(loadContent("/head"), document.head);
+			appendChildNodes(loadContent("/body"), document.body);
+
+			document.title = site.globalTitle + " - " + document.title;
+		</script>
 	</body>
 </html>

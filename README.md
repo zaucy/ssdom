@@ -53,6 +53,22 @@ If a `server` or `server-only` script affects the document's source in anyway it
 
 This allows you to handle sensitive data on the server while using the dom or just remove or add content depending on whos viewing it.
 
+## Folder Hierarchy
+Currently ssdom uses a fixed folder hierarchy where things can be placed. Eventually these should be customizable in one way or another.
+
+```
+/my-website
+  /public
+    - Files that get served statically to the client and are sometimes loaded on the server as well.
+  /private
+    /content
+      - HTML files which can be retrieved with loadContent() as element objects.
+    /data
+      - JSON files which can be retrieved with loadData() as js objects.
+    /scripts
+      - Scripts with context server or server-only are placed in here.
+```
+
 ## FAQ
 _(These aren't actually frequently asked questions. I just made them up.)_
 
