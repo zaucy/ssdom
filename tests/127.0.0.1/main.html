@@ -1,20 +1,59 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 	</head>
 	<body>
+		<script context="server-only" src="/test.js"></script>
+
 		<script context="server-only">
+			var content = (function() {
+				var pathname = location.pathname;
+				if(pathname.endsWith(".htm") || pathname.endsWith(".html")) {
+					pathname = pathname.substr(0, pathname.lastIndexOf("."));
+					location.pathname = pathname;
+					return null;
+				}
+
+				return loadContent(pathname) || loadContent("/404");
+			}());
+		</script>
+
+		<div id="global-wrap">
+			<div id="header"></div>
+			<div id="posts-wrap">
+				<div id="pre-posts"></div>
+				<div id="main-posts"></div>
+				<div id="post-posts"></div>
+			</div>
+			<div id="footer"></div>
+		</div>
+
+		<script context="server-only">
+			"use strict";
 			var site = loadData("/site.json");
 
 			function appendChildNodes(element, target) {
-				for(var i=0; element.childNodes.length > i; i++) {
-					var child = element.childNodes[i];
-					target.appendChild(child);
+				if(!element || !target) {
+					return;
+				}
+
+				if(typeof element.length === "undefined") {
+					while(element.firstChild !== null) {
+						target.appendChild(element.firstChild);
+					}
+				} else {
+					for(let i=0; element.length > i; i++) {
+						appendChildNodes(element[i], target);
+					}
 				}
 			}
 
-			appendChildNodes(loadContent("/head"), document.head);
-			appendChildNodes(loadContent("/body"), document.body);
+			var prePostsContent = content.querySelectorAll("pre-posts");
+
+			appendChildNodes(loadContent("/_common/head"), document.head);
+			appendChildNodes(prePostsContent, document.getElementById("pre-posts"));
+			appendChildNodes(content.querySelectorAll("post"), document.getElementById("main-posts"));
 
 			document.title = site.globalTitle + " - " + document.title;
 		</script>
