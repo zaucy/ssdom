@@ -5,8 +5,6 @@ ssdom __heavily__ uses [jsdom](https://github.com/tmpvar/jsdom) to run the serve
 
 The goal of ssdom is to be light weight and simple. I plan to improve jsdom instead of ssdom.
 
-Currently ssdom uses my version of jsdom because of a small change I needed. [zaucy/jsdom](/zaucy/jsdom)
-
 ## How to use ssdom
 
 #### Single site command line:
