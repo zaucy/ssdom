@@ -7,6 +7,13 @@
 		<script context="server-only" src="/test.js"></script>
 
 		<script context="server-only">
+			ssdom.on("pre-send", function() {
+				console.log("pre-send!");
+			});
+
+			ssdom.on("request", function() {
+				console.log("request!");
+			});
 			var content = (function() {
 				var pathname = location.pathname;
 				if(pathname.endsWith(".htm") || pathname.endsWith(".html")) {
@@ -15,7 +22,7 @@
 					return null;
 				}
 
-				return loadContent(pathname) || loadContent("/404");
+				return ssdom.loadContent(pathname) || ssdom.loadContent("/404");
 			}());
 		</script>
 
@@ -31,7 +38,7 @@
 
 		<script context="server-only">
 			"use strict";
-			var site = loadData("/site.json");
+			var site = ssdom.loadData("/site.json");
 
 			function appendChildNodes(element, target) {
 				if(!element || !target) {
@@ -51,7 +58,7 @@
 
 			var prePostsContent = content.querySelectorAll("pre-posts");
 
-			appendChildNodes(loadContent("/_common/head"), document.head);
+			appendChildNodes(ssdom.loadContent("/_common/head"), document.head);
 			appendChildNodes(prePostsContent, document.getElementById("pre-posts"));
 			appendChildNodes(content.querySelectorAll("post"), document.getElementById("main-posts"));
 
