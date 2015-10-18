@@ -1,6 +1,6 @@
 {
   "name": "ssdom",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Server Side DOM",
   "main": "index.js",
   "bin": {
