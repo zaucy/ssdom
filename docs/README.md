@@ -29,7 +29,21 @@ if(content === null) {
 **Warning**: Changes to the returned elements will be present upon future loadContent() calls in the same session.
 
 #### .loadData( pathname, copied=false )
-Reads the JSON file in the pathname and parses it into a vanilla javascript object. If the pathname has already been loaded it will skip reading the file and just pass the previously parsed file. If no file exists `null` is returned.
+Reads the JSON file in the pathname and parses it into a vanilla javascript object. If the pathname has already been loaded it will skip reading the file and just pass the previously parsed file. If no file exists `null` is returned. If an asterisk (\*) is present it will collect all file in the folder and return an object with the filename as the key without the extension.
+
+Example:
+```
+// Hierarchy is like this
+// /some/path/file1.json
+// /some/path/file2.json
+// /some/path/file2.json
+
+// this is like calling loadData 3 times for each file in /some/path/
+var myData = ssdom.loadData("/some/path/*.json");
+// myData.file1
+// myData.file2
+// myData.file3
+```
 
 **Warning**: Changes to the returned javascript object will be present upon future loadData() calls in the same session.
 
